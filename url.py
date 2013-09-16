@@ -11,7 +11,7 @@ import urlparse
 import hashlib
 
 
-from unicode import unicode_to_str
+from unicode import uni2str
 from libs.TLDs.regDomain import getRegisteredDomain
 from libs.TLDs.effectiveTLDs import tldTree
 
@@ -51,7 +51,7 @@ def get_uid(url):
     """
     # convert unicode to str (with encode utf-8)
     # this function is str safe, without double encode error
-    url = unicode_to_str(url)
+    url = uni2str(url)
     
     if isinstance(url, types.StringType):
         # md5 is a string represents a 32bytes hex number
