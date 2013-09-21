@@ -9,3 +9,6 @@ lxml
 beautifulsoup
 chardet
 hashlib
+TLDs
+chardet
+requests

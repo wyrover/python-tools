@@ -1,4 +1,3 @@
-TLDs
 # <@LICENSE>
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -29,3 +28,53 @@ TLDs
 #dkim-reputation.org blocks signing domains on the level of registered domains
 #to rate senders who use e.g. a.spamdomain.tld, b.spamdomain.tld, ... under
 #the most common identifier - the registered domain - finally.
+
+
+
+def getRegisteredDomain(signingDomain, treeNode_ref):
+
+	signingDomainParts = signingDomain.split(".")
+
+	result = findRegisteredDomain(treeNode_ref, signingDomainParts)
+
+	if result == None:
+		# this is an invalid domain name
+		return None
+
+	# assure there is at least 1 TLD in the stripped signing domain
+	if result.find('.') == -1:
+		cnt = len(signingDomainParts)
+		if cnt <= 1:
+			return None
+		return signingDomainParts[-2] + "." + signingDomainParts[-1]
+	else:
+		return result
+
+# recursive helper method
+def findRegisteredDomain(treeNode_ref, remainingSigningDomainParts):
+
+	if len(remainingSigningDomainParts) > 0:
+		sub = remainingSigningDomainParts.pop()
+	else:
+		sub = None
+
+	if not sub:
+		sub = None
+
+	result = None
+
+	if '!' in treeNode_ref:
+		return '#'
+	elif sub in treeNode_ref:
+		result = findRegisteredDomain(treeNode_ref[sub], remainingSigningDomainParts)
+	elif '*' in treeNode_ref:
+		result = findRegisteredDomain(treeNode_ref['*'], remainingSigningDomainParts)
+	else: 
+		return sub
+
+	if result == '#':
+		return sub
+	elif result != None and len(result) > 0:
+		return result + "." + sub
+	return None
+
