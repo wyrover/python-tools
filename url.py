@@ -3,6 +3,9 @@
 # Author: guodongdong <dd.guo@foxmail.com>
 # Created Time: 2013年09月11日 星期三 20时55分00秒
 
+def get_digest(url):
+    return url
+
 def main():
     pass
 
