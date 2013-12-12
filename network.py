@@ -8,8 +8,15 @@ def get_utf8_body(url):
     response = requests.get(url)
     return response.text
 
+def get_http_body():
+    pass
+
 def main():
     pass
+
+def get_redirected(url):
+    pass
+
 
 if __name__ == "__main__":
     main()

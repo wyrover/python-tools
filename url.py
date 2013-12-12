@@ -71,6 +71,9 @@ def get_uid(url):
         
         return uid
 
+def get_digest(url):
+    return url
+
 def main():
     pass
 

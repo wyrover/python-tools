@@ -3,7 +3,12 @@ python-tools
 
 my python tools
 
-depend:
+used libs
+
+lxml
+beautifulsoup
+chardet
+hashlib
 TLDs
 chardet
 requests
