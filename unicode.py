@@ -4,6 +4,21 @@
 # Created Time: 2013年09月11日 星期三 20时55分15秒
 import chardet
 
+def valid_XML_char_ordinal(i):
+    return ( # conditions ordered by presumed frequency
+            0x20 <= i <= 0xD7FF 
+            or i in (0x9, 0xA, 0xD)
+            or 0xE000 <= i <= 0xFFFD
+            or 0x10000 <= i <= 0x10FFFF
+    )
+
+def uniform(text):
+    """filter none xml characters"""
+    return ''.join(
+        c for c in text if
+        valid_XML_char_ordinal(ord(c))
+   )
+
 def uni_to_utf8(json_obj):
     """encoding key/value of json object to utf8
     for json.loads defaultly loads value to unicode
